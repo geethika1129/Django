@@ -40,6 +40,22 @@ h1{
   width: 500px;
   height: 700px;
 }
+
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+.h-custom {
+  height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
 </style>
 
 
@@ -69,7 +85,8 @@ h1{
             </li>
             
           </ul>
-          <button type="button" class="btn btn-primary">Sign Up</button>
+          <a class="btn btn-primary" href="/signup" role="button">Signup</a>
+          <a style="margin-left:20px" class="btn btn-primary" href="/login" role="button">Login</a>
         </div>
       </nav>
 
