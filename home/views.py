@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from datetime import datetime
 from home.models import Contact
-from django.contrib.messages import constants as messages
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
