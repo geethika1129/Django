@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from datetime import datetime
 from home.models import Contact
 from django.contrib import messages
+from django.contrib.auth.models import User,auth
 
 # Create your views here.
 def index(request):
@@ -26,7 +27,25 @@ def contact(request):
     return render(request,'contact.html')
 
 def signup(request):
-    return render(request,'signup.html')
+    if request.method == "POST":
+      name=request.POST.get('name')
+      email=request.POST.get('email')
+      password=request.POST.get('password')
+      rpassword=request.POST.get('rpassword')
+
+      if password == rpassword:
+          if User.objects.filter(email=email).exists():
+              messages.info(request, 'Email already used')
+              return redirect('signup')
+          else:
+             user=User.objects.create_user(name=name, email=email, password=password)
+             user.save()
+             return redirect('login')
+      else:
+         messages.info(request, 'Password not same ')
+         return redirect('register')
+    else:
+      return render(request,'signup.html')
 
 def login(request):
     return render(request,'login.html')
