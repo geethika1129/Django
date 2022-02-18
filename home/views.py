@@ -28,22 +28,22 @@ def contact(request):
 
 def signup(request):
     if request.method == "POST":
-      name=request.POST.get('name')
-      email=request.POST.get('email')
-      password=request.POST.get('password')
-      rpassword=request.POST.get('rpassword')
+       username=request.POST['username']
+       email=request.POST['email']
+       password=request.POST['password']
+       rpassword=request.POST['rpassword']
 
-      if password == rpassword:
+       if password == rpassword:
           if User.objects.filter(email=email).exists():
               messages.info(request, 'Email already used')
               return redirect('signup')
           else:
-             user=User.objects.create_user(name=name, email=email, password=password)
-             user.save()
+             user=User.objects.create_user(username=username, email=email, password=password)
+             user.save();
              return redirect('login')
-      else:
+       else:
          messages.info(request, 'Password not same ')
-         return redirect('register')
+         return redirect('signup')
     else:
       return render(request,'signup.html')
 
